@@ -7,5 +7,6 @@ setup(name='django-mobileadsense',
       author='John Boxall',
       author_email='john@mobify.com',
       url='https://github.com/johnboxall/django-mobileadsense',
-      packages=['adsense'],
+      packages=['adsense', 'adsense.templatetags', ],
+      package_data = {'adsence': ['templates/*', 'static/*',],},
       )
