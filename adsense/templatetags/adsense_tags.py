@@ -10,6 +10,7 @@ register = template.Library()
 fail_silently = getattr(settings, "ADSENSE_DEBUG", None) or settings.DEBUG
 default_publisher_id = getattr(settings, "ADSENSE_PUBLISHER_ID", None)
 default_slot_id = getattr(settings, "ADSENSE_SLOT_ID", None)
+default_template = getattr(settings, "ADSENSE_TEMPLATE", 'adsense.html')
 
 class MobileAdSenseNode(template.Node):
     def __init__(self, publisher_id, slot_id):
@@ -36,7 +37,7 @@ class MobileAdSenseNode(template.Node):
                        fail_silently=fail_silently)
 
         if not res or res == '<!-- google_afm -->':
-            res = render(context["request"], 'adsense.html').content
+            res = render(context["request"], default_template).content
 
         return res
 
