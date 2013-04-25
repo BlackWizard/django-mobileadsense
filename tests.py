@@ -25,15 +25,16 @@ test_request_params = {
 }
 test_request = RequestFactory(**test_request_params).get("/")
 test_publisher_id = "pub-5889931444784070"
+test_slot_id = "1234567890"
 
 class TestAdSense(TestCase):
     def test_adsense(self):
-        response = adsense(test_request, test_publisher_id)
+        response = adsense(test_request, test_publisher_id, test_slot_id)
         self.assertTrue(len(response))
     
 class TemplateTagTest(TestCase):
     def test_mobileadsense(self):
-        t = Template('{% load adsense_tags %}{% mobileadsense "pub-5889931444784070" %}')
+        t = Template('{% load adsense_tags %}{% mobileadsense "%s" "%s" %}' % (test_publisher_id, test_slot_id))
         c = Context({"request": test_request})
         response = t.render(c)
         self.assertTrue(len(response))
